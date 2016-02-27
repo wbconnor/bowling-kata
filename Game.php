@@ -2,7 +2,6 @@
 
 class Game
 {
-
     protected $score;
 
     /**
@@ -10,7 +9,7 @@ class Game
      *
      * @return void
      */
-    public function __construct() 
+    public function __construct()
     {
         $this->score = 0;
     }
@@ -27,12 +26,22 @@ class Game
     }
 
     /**
-     * Return the total score for the game.
+     * Returns the total score for the game.
      *
      * @return int
      */
     public function score()
     {
         return $this->score;
+    }
+
+    /**
+     * Runs the game.
+     *
+     * @return void
+     */
+    public function run()
+    {
+
     }
 }
