@@ -2,6 +2,19 @@
 
 class Game
 {
+
+    protected $score;
+
+    /**
+     * Constructor initializes all properties.
+     *
+     * @return void
+     */
+    public function __construct() 
+    {
+        $this->score = 0;
+    }
+
     /**
      * The ball rolls and knocks over the given number of pins.
      *
@@ -10,7 +23,7 @@ class Game
      */
     public function roll($pins)
     {
-
+        $this->score += $pins;
     }
 
     /**
@@ -20,6 +33,6 @@ class Game
      */
     public function score()
     {
-
+        return $this->score;
     }
 }
