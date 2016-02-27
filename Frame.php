@@ -3,6 +3,7 @@
 class Frame
 {
     protected $score;
+    protected $rolls;
     protected $roll_count;
     protected $max_rolls;
     protected $is_strike;
@@ -11,6 +12,7 @@ class Frame
     public function __construct()
     {
         $this->score      = 0;
+        $this->rolls      = [];
         $this->roll_count = 0;
         $this->max_rolls  = 2;
         $this->is_strike  = false;
@@ -23,7 +25,7 @@ class Frame
         {
             ++$this->roll_count;
 
-            $this->score();
+            $this->score($pins);
 
             return true;
         }
@@ -33,7 +35,7 @@ class Frame
         }
     }
 
-    protected function score()
+    protected function score($pins = 0)
     {
         $this->score += $pins;
 
