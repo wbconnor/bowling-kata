@@ -35,19 +35,20 @@ class Game
     {
         if (count($this->frames) <= $this->max_frames && !$this->is_finished)
         {
-            if (! &$this->getCurrentFrame()->isFinished())
+            $this->getCurrentFrame()->roll($pins);
+
+            if ($this->getCurrentFrame()->isFinished())
             {
-                &$this->getCurrentFrame()->roll($pins);
-            }
-            else
-            {
-                if (count($this->frames) < $this->max_frames - 1)
+                if (count($this->frames) < $this->max_frames)
                 {
-                    $this->frames[] = new Frame();
-                }
-                else if (count($this->frames) < $this->max_frames)
-                {
-                    $this->frames[] = new EndFrame();
+                    if (count($this->frames) < $this->max_frames - 1)
+                    {
+                        $this->frames[] = new Frame();
+                    }
+                    else
+                    {
+                        $this->frames[] = new EndFrame();
+                    }
                 }
                 else
                 {
@@ -55,6 +56,24 @@ class Game
                 }
             }
         }
+    }
+
+    public function getFrame($index = 0)
+    {
+        if (array_key_exists($index, $this->frames))
+        {
+            return $this->frames[$index];
+        }
+    }
+
+    public function getFrames()
+    {
+        return $this->frames;
+    }
+
+    public function isFinished()
+    {
+        return $this->is_finished;
     }
 
     /**
@@ -77,7 +96,7 @@ class Game
 
     }
 
-    protected function &getCurrentFrame()
+    protected function getCurrentFrame()
     {
         return $this->frames[count($this->frames) - 1];
     }
