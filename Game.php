@@ -1,8 +1,13 @@
 <?php
 
+require_once (__DIR__ . '/Frame.php');
+require_once (__DIR__ . '/EndFrame.php');
+
 class Game
 {
     protected $score;
+    protected $frames;
+    protected $max_frames;
 
     /**
      * Constructor initializes all properties.
@@ -11,7 +16,9 @@ class Game
      */
     public function __construct()
     {
-        $this->score = 0;
+        $this->score      = 0;
+        $this->frames     = [];
+        $this->max_frames = 10;
     }
 
     /**
@@ -20,9 +27,9 @@ class Game
      * @param $pins int
      * @return void
      */
-    public function roll($pins)
+    public function roll($pins = 0)
     {
-        $this->score += $pins;
+        
     }
 
     /**

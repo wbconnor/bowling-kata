@@ -1,5 +1,7 @@
 <?php
 
+require_once (__DIR__ . '/Frame.php');
+
 class EndFrame extends Frame
 {
     protected $allow_bonus_roll;
@@ -14,19 +16,16 @@ class EndFrame extends Frame
 
     protected function score($pins = 0)
     {
-        $this->score += $pins;
+        $this->rolls[] = $pins;
+        $this->score   += $pins;
 
-        if ($this->score === 10)
+        if (count($this->rolls) === 2 && $this->score < 10)
         {
-            if ($this->roll_count === 1)
-            {
-                $this->is_strike = true;
-                $this->roll_count = $this->max_rolls;
-            }
-            else if ($this->roll_count === 2)
-            {
-                $this->is_spare = true;
-            }
+            $this->is_finished = true;
+        }
+        else if (count($this->rolls) === $this->max_rolls)
+        {
+            $this->is_finished = true;
         }
     }
 }

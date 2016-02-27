@@ -3,53 +3,59 @@
 class Frame
 {
     protected $score;
+    protected $score_bonus;
     protected $rolls;
-    protected $roll_count;
     protected $max_rolls;
-    protected $is_strike;
-    protected $is_spare;
+    protected $is_finished;
 
     public function __construct()
     {
-        $this->score      = 0;
-        $this->rolls      = [];
-        $this->roll_count = 0;
-        $this->max_rolls  = 2;
-        $this->is_strike  = false;
-        $this->is_spare   = false;
+        $this->score       = 0;
+        $this->score_bonus = 0;
+        $this->rolls       = [];
+        $this->max_rolls   = 2;
+        $this->is_finished = false;
     }
 
     public function roll($pins = 0)
     {
-        if ($this->roll_count < $this->max_rolls)
+        if (count($this->rolls) < $this->max_rolls && !$this->is_finished)
         {
-            ++$this->roll_count;
-
             $this->score($pins);
+        }
+    }
 
-            return true;
-        }
-        else
+    public function getRoll($index = 0)
+    {
+        if (array_key_exists($index, $this->rolls))
         {
-            return false;
+            return $this->rolls[$index];
         }
+    }
+
+    public function getRolls()
+    {
+        return $this->rolls;
+    }
+
+    public function getScore()
+    {
+        return $this->score;
+    }
+
+    public function isFinished()
+    {
+        return $this->is_finished;
     }
 
     protected function score($pins = 0)
     {
-        $this->score += $pins;
+        $this->rolls[] = $pins;
+        $this->score   += $pins;
 
         if ($this->score === 10)
         {
-            if ($this->roll_count === 1)
-            {
-                $this->is_strike = true;
-                $this->roll_count = $this->max_rolls;
-            }
-            else if ($this->roll_count === 2)
-            {
-                $this->is_spare = true;
-            }
+            $this->is_finished = true;
         }
     }
 }
