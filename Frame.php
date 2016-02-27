@@ -53,7 +53,7 @@ class Frame
         $this->rolls[] = $pins;
         $this->score   += $pins;
 
-        if ($this->score === 10)
+        if ($this->score === 10 || count($this->rolls) === $this->max_rolls)
         {
             $this->is_finished = true;
         }
