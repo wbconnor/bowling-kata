@@ -58,6 +58,11 @@ class Game
         }
     }
 
+    /**
+     * Gets a specific frame.
+     *
+     * @return object
+     */
     public function getFrame($index = 0)
     {
         if (array_key_exists($index, $this->frames))
@@ -66,11 +71,21 @@ class Game
         }
     }
 
+    /**
+     * Returns all frames from this game.
+     *
+     * @return array
+     */
     public function getFrames()
     {
         return $this->frames;
     }
 
+    /**
+     * Checks if the game is finished.
+     *
+     * @return bool
+     */
     public function isFinished()
     {
         return $this->is_finished;
@@ -96,6 +111,11 @@ class Game
 
     }
 
+    /**
+     * Returns the current frame.
+     *
+     * @return object
+     */
     protected function getCurrentFrame()
     {
         return $this->frames[count($this->frames) - 1];
