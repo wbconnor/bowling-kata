@@ -6,6 +6,11 @@ class EndFrame extends Frame
 {
     protected $allow_bonus_roll;
 
+    /**
+     * Constructor initializes all properties.
+     *
+     * @return void
+     */
     public function __construct()
     {
         parent::__construct();
@@ -14,6 +19,11 @@ class EndFrame extends Frame
         $this->allow_bonus_roll = false;
     }
 
+    /**
+     * Sets the score for this frame.
+     *
+     * @return void
+     */
     protected function score($pins = 0)
     {
         $this->rolls[] = $pins;
