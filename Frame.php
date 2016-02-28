@@ -8,6 +8,11 @@ class Frame
     protected $max_rolls;
     protected $is_finished;
 
+    /**
+     * Constructor initializes all properties.
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->score       = 0;
@@ -17,6 +22,11 @@ class Frame
         $this->is_finished = false;
     }
 
+    /**
+     * Attempts to complete a roll within the frame.
+     *
+     * @return void
+     */
     public function roll($pins = 0)
     {
         if (count($this->rolls) < $this->max_rolls && !$this->is_finished)
@@ -25,6 +35,11 @@ class Frame
         }
     }
 
+    /**
+     * Returns a specific roll record.
+     *
+     * @return array
+     */
     public function getRoll($index = 0)
     {
         if (array_key_exists($index, $this->rolls))
@@ -33,21 +48,41 @@ class Frame
         }
     }
 
+    /**
+     * Returns all previous rolls.
+     *
+     * @return array
+     */
     public function getRolls()
     {
         return $this->rolls;
     }
 
+    /**
+     * Returns the current score of this frame.
+     *
+     * @return int
+     */
     public function getScore()
     {
         return $this->score;
     }
 
+    /**
+     * Returns a true if this frame is finished.
+     *
+     * @return bool
+     */
     public function isFinished()
     {
         return $this->is_finished;
     }
 
+    /**
+     * Sets the score for this frame.
+     *
+     * @return void
+     */
     protected function score($pins = 0)
     {
         $this->rolls[] = $pins;
