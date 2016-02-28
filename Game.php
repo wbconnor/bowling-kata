@@ -108,6 +108,33 @@ class Game
      */
     public function run()
     {
+        echo "Welcome to the PHP Bowling Kata!" . PHP_EOL .
+            "You'll be prompted for the score of each of your rolls." . PHP_EOL .
+            "Type \"quit\" to exit" . PHP_EOL;
+
+        while(! $this->is_finished)
+        {
+            echo "Enter your score for Frame #" . count($this->getFrames()) . " roll #" . $this->getFrame()->getRoll() . ": " . PHP_EOL;
+
+            $handle = fopen ("php://stdin","r");
+
+            $this_roll = fgets($handle);
+
+            $this_roll = trim($this_roll);
+
+            if(is_numeric($this_roll))
+            {
+                $this->roll($this_roll);
+            }
+            elseif($this_roll == 'quit')
+            {
+                echo "Thanks for playing" . PHP_EOL;
+                exit;
+            }
+
+        }
+
+        echo "Your score without bonuses is " . $this->score();
 
     }
 
