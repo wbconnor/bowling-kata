@@ -98,7 +98,54 @@ class Game
      */
     public function score()
     {
-        return $this->score;
+        if($this->is_finished)
+        {
+            $score = 0;            
+            $strikes = 0;
+            $spares = 0;
+
+            for($i = 0; $i < 10; ++$i)
+            {
+                $frame = $this->getFrame($i);
+
+                $score += $frame->getScore();
+
+
+                if($frame->getScore() === 10 && $i != 9)
+                {
+                    $next_frame = $this->getFrame($i + 1);
+
+                    if(count($frame->getRolls()) == 1)
+                    {
+                        // add the bonus score for a strike to $score
+                        ++$strikes;
+
+                        $score += $next_frame->getScore();
+
+                        if(count($next_frame->getRolls()) == 1)
+                        {
+                            $score += $this->getFrame($i + 2)->getRoll(0);
+                        }
+
+                    }
+                    else
+                    {
+                        // cadd the bonus score for a stpare to $score
+                        ++$spares;
+
+                        $score += $this->getFrame($i + 1)->getRoll(0);
+
+                        $score += 5;
+                    }
+                }
+
+                echo "Score for frame #" . ($i + 1) . " is " . $frame->getScore() . PHP_EOL;
+            }
+        }
+        echo PHP_EOL . "Final Score = " . $score .
+            PHP_EOL . "Strikes = " . $strikes . 
+            PHP_EOL . "Spares = " . $spares .
+            PHP_EOL . PHP_EOL . "Thanks for playing!";
     }
 
     /**
