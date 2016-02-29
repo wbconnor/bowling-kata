@@ -113,8 +113,9 @@ class Game
             "Type \"quit\" to exit" . PHP_EOL;
 
         while(! $this->is_finished)
-        {
-            echo "Enter your score for Frame #" . count($this->getFrames()) . " roll #" . $this->getFrame()->getRoll() . ": " . PHP_EOL;
+        {            
+            echo "Enter your score for Frame #" . count($this->getFrames()) . 
+            " roll #" . (count($this->getCurrentFrame()->getRolls()) + 1) . ": " . PHP_EOL;
 
             $handle = fopen ("php://stdin","r");
 
