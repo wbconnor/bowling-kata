@@ -104,12 +104,15 @@ class Game
             $strikes = 0;
             $spares = 0;
 
+            echo PHP_EOL;
+
             for($i = 0; $i < 10; ++$i)
             {
                 $frame = $this->getFrame($i);
 
-                $score += $frame->getScore();
+                $frame_score = 0;
 
+                $frame_score += $frame->getScore();
 
                 if($frame->getScore() === 10 && $i != 9)
                 {
@@ -120,28 +123,32 @@ class Game
                         // add the bonus score for a strike to $score
                         ++$strikes;
 
-                        $score += $next_frame->getScore();
+                        $frame_score += $next_frame->getScore();
 
                         if(count($next_frame->getRolls()) == 1)
                         {
-                            $score += $this->getFrame($i + 2)->getRoll(0);
+                            $frame_score += $this->getFrame($i + 2)->getRoll(0);
                         }
 
                     }
                     else
                     {
-                        // cadd the bonus score for a stpare to $score
+                        // add the bonus score for a stpare to $score
                         ++$spares;
 
-                        $score += $this->getFrame($i + 1)->getRoll(0);
+                        $frame_score += $next_frame->getRoll(0);
 
-                        $score += 5;
+                        $frame_score += 5;
                     }
                 }
 
-                echo "Score for frame #" . ($i + 1) . " is " . $frame->getScore() . PHP_EOL;
+                $score += $frame_score;
+
+                echo "Score for frame #" . ($i + 1) . " is " . $frame_score . PHP_EOL .
+                    "Running total is " . $score . PHP_EOL . PHP_EOL;
             }
         }
+
         echo PHP_EOL . "Final Score = " . $score .
             PHP_EOL . "Strikes = " . $strikes . 
             PHP_EOL . "Spares = " . $spares .
@@ -162,7 +169,7 @@ class Game
         while(! $this->is_finished)
         {            
             echo "Enter your score for Frame #" . count($this->getFrames()) . 
-            " roll #" . (count($this->getCurrentFrame()->getRolls()) + 1) . ": " . PHP_EOL;
+            " roll #" . (count($this->getCurrentFrame()->getRolls()) + 1) . ": ";
 
             $handle = fopen ("php://stdin","r");
 
