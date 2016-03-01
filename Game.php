@@ -147,8 +147,6 @@ class Game
                     {
                         ++$strikes;
 
-                        echo $strikes + "\n";
-
                         if ($frame_rolls[1] === 10)
                         {
                             ++$strikes;
