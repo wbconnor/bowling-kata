@@ -142,7 +142,7 @@ class Game
 
                         $frame_score += $next_frame->getRoll(0);
 
-                        $frame_score += 5;
+                        // $frame_score += 5; // not sure why this is here?
                     }
                 }
                 else if ($i === ($this->max_frames - 1))
@@ -160,10 +160,11 @@ class Game
                         {
                             ++$strikes;
                         }
-                    }
-                    else if ($frame_score === 10)
-                    {
-                        ++$spares;
+
+                        if (($frame_rolls[0] + $frame_rolls[1]) === 10)
+                        {
+                            ++$spares;
+                        }
                     }
                 }
 
