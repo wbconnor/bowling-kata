@@ -110,12 +110,15 @@ class Game
             {
                 $frame       = $this->getFrame($i);
                 $frame_score = $frame->getScore();
+                $frame_rolls = $frame->getRolls();
 
-                if($frame->getScore() === 10 && $i < ($this->max_frames - 1))
+                $num_of_rolls = count($frame_rolls);
+
+                if($frame_score === 10 && $i < ($this->max_frames - 1))
                 {
                     $next_frame = $this->getFrame($i + 1);
 
-                    if(count($frame->getRolls()) == 1)
+                    if(count($frame->getRolls()) === 1)
                     {
                         // add the bonus score for a strike to $score
                         ++$strikes;
@@ -136,6 +139,29 @@ class Game
                         $frame_score += $next_frame->getRoll(0);
 
                         $frame_score += 5;
+                    }
+                }
+                else if ($i === ($this->max_frames - 1))
+                {
+                    if ($num_of_rolls > 2)
+                    {
+                        ++$strikes;
+
+                        echo $strikes + "\n";
+
+                        if ($frame_rolls[1] === 10)
+                        {
+                            ++$strikes;
+                        }
+
+                        if ($frame_rolls[2] === 10)
+                        {
+                            ++$strikes;
+                        }
+                    }
+                    else if ($frame_score === 10)
+                    {
+                        ++$spares;
                     }
                 }
 
@@ -172,7 +198,7 @@ class Game
 
             $this_roll = fgets($handle);
 
-            $this_roll = trim($this_roll);
+            $this_roll = ((int) trim($this_roll));
 
             if(is_numeric($this_roll))
             {
