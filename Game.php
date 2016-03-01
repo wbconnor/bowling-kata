@@ -137,12 +137,10 @@ class Game
                     }
                     else
                     {
-                        // add the bonus score for a stpare to $score
                         ++$spares;
 
+                        // adding spare bonus
                         $frame_score += $next_frame->getRoll(0);
-
-                        // $frame_score += 5; // not sure why this is here?
                     }
                 }
                 else if ($i === ($this->max_frames - 1))
