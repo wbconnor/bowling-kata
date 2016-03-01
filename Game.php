@@ -100,21 +100,18 @@ class Game
     {
         if($this->is_finished)
         {
-            $score = 0;            
+            $score = 0;
             $strikes = 0;
             $spares = 0;
 
             echo PHP_EOL;
 
-            for($i = 0; $i < 10; ++$i)
+            for($i = 0; $i < $this->max_frames; ++$i)
             {
-                $frame = $this->getFrame($i);
+                $frame       = $this->getFrame($i);
+                $frame_score = $frame->getScore();
 
-                $frame_score = 0;
-
-                $frame_score += $frame->getScore();
-
-                if($frame->getScore() === 10 && $i != 9)
+                if($frame->getScore() === 10 && $i < ($this->max_frames - 1))
                 {
                     $next_frame = $this->getFrame($i + 1);
 
@@ -150,7 +147,7 @@ class Game
         }
 
         echo PHP_EOL . "Final Score = " . $score .
-            PHP_EOL . "Strikes = " . $strikes . 
+            PHP_EOL . "Strikes = " . $strikes .
             PHP_EOL . "Spares = " . $spares .
             PHP_EOL . PHP_EOL . "Thanks for playing!";
     }
@@ -167,8 +164,8 @@ class Game
             "Type \"quit\" to exit" . PHP_EOL;
 
         while(! $this->is_finished)
-        {            
-            echo "Enter your score for Frame #" . count($this->getFrames()) . 
+        {
+            echo "Enter your score for Frame #" . count($this->getFrames()) .
             " roll #" . (count($this->getCurrentFrame()->getRolls()) + 1) . ": ";
 
             $handle = fopen ("php://stdin","r");
