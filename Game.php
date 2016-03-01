@@ -123,11 +123,15 @@ class Game
                         // add the bonus score for a strike to $score
                         ++$strikes;
 
-                        $frame_score += $next_frame->getScore();
+                        $frame_score += $next_frame->getRoll(0);
 
                         if(count($next_frame->getRolls()) == 1)
                         {
                             $frame_score += $this->getFrame($i + 2)->getRoll(0);
+                        }
+                        else
+                        {
+                            $frame_score += $next_frame->getRoll(1);
                         }
 
                     }
