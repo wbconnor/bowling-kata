@@ -215,7 +215,7 @@ class Game
 
         }
 
-        echo "Your score without bonuses is " . $this->score();
+        $this->score();
 
     }
 
