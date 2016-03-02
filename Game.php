@@ -1,7 +1,7 @@
 <?php
 
 require_once (__DIR__ . '/Frame.php');
-require_once (__DIR__ . '/EndFrame.php');
+require_once (__DIR__ . '/FinalFrame.php');
 
 class Game
 {
@@ -72,7 +72,7 @@ class Game
                 }
                 else if (count($this->frames) < $this->max_frames)
                 {
-                    $this->frames[] = new EndFrame();
+                    $this->frames[] = new FinalFrame();
                 }
             }
 

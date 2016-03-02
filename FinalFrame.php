@@ -2,7 +2,7 @@
 
 require_once (__DIR__ . '/Frame.php');
 
-class EndFrame extends Frame
+class FinalFrame extends Frame
 {
     /**
      * Returns the total number of strikes.
