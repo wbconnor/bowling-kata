@@ -4,38 +4,42 @@ require_once (__DIR__ . '/Frame.php');
 
 class EndFrame extends Frame
 {
-    protected $allow_bonus_roll;
-
     /**
-     * Constructor initializes all properties.
+     * Returns the total number of strikes.
      *
-     * @return void
+     * @return int
      */
-    public function __construct()
+    public function getStrikesCount()
     {
-        parent::__construct();
+        $strikes      = 0;
+        $value_counts = array_count_values($this->getRolls());
 
-        $this->max_rolls        = 3;
-        $this->allow_bonus_roll = false;
+        if (array_key_exists(10, $value_counts))
+        {
+            $strikes += ($value_counts[10]);
+        }
+
+        return $strikes;
     }
 
     /**
-     * Sets the score for this frame.
+     * Returns the total number of spares.
      *
-     * @return void
+     * @return int
      */
-    protected function score($pins = 0)
+    public function getSparesCount()
     {
-        $this->rolls[] = $pins;
-        $this->score   += $pins;
+        $spares = 0;
 
-        if (count($this->rolls) === 2 && $this->score < 10)
+        if ($this->isSpare())
         {
-            $this->is_finished = true;
+            ++$spares;
         }
-        else if (count($this->rolls) === $this->max_rolls)
+        else if ($this->isStrike() && ($this->getRoll(1) + $this->getRoll(2)) === 10)
         {
-            $this->is_finished = true;
+            ++$spares;
         }
+
+        return $spares;
     }
 }
