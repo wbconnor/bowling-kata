@@ -2,6 +2,18 @@
 
 class Cli
 {
+    protected $input;
+
+    /**
+     * Constructor initializes all properties.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->input = [];
+    }
+
     /**
      * Returns clean input from the command line.
      *
@@ -19,7 +31,10 @@ class Cli
      */
     public function inputRaw()
     {
-        return fgets(STDIN);
+        $input = fgets(STDIN);
+        $this->input[] = $input;
+
+        return $input;
     }
 
     /**
