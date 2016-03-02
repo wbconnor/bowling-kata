@@ -132,6 +132,9 @@ class Game
             $strikes = 0;
             $spares  = 0;
 
+            $this->cli->output('/---- Scores ----/');
+            $this->cli->output();
+
             foreach ($this->frames as $index => $frame)
             {
                 $score   += $frame->getScore();
@@ -166,11 +169,22 @@ class Game
         $this->cli->output('Enter "q" to exit');
         $this->cli->output();
 
+        $this->cli->output('/---- Rolls ----/');
+        $this->cli->output();
+
         while(!$this->is_finished)
         {
-            $this->cli->output('Enter your score for Frame #');
-            $this->cli->output(count($this->getFrames()), false);
-            $this->cli->output(' Roll #' . ($this->getCurrentFrame()->getRollsCount() + 1) . ': ', false);
+            $frames_count = count($this->getFrames());
+            $roll_number  = $this->getCurrentFrame()->getRollsCount() + 1;
+
+            // only output frame number on the first roll
+            if ($roll_number === 1)
+            {
+                $this->cli->output('Frame #' . ($frames_count));
+                $this->cli->output();
+            }
+
+            $this->cli->output('Enter Roll #' . ($roll_number) . ': ', false);
 
             $input = $this->cli->input();
 
@@ -182,11 +196,9 @@ class Game
                 exit();
             }
 
-            $roll = (int) $input;
-
-            if (is_numeric($roll))
+            if (is_numeric($input))
             {
-                $this->roll($roll);
+                $this->roll($input);
             }
             else
             {
