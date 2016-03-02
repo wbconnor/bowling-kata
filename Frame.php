@@ -27,6 +27,7 @@ class Frame
     /**
      * Attempts to complete a roll within the frame.
      *
+     * @param $pins int
      * @return void
      */
     public function roll($pins = 0)
@@ -40,7 +41,8 @@ class Frame
     /**
      * Returns a specific roll record.
      *
-     * @return array
+     * @param $index int
+     * @return int
      */
     public function getRoll($index = 0)
     {
@@ -53,7 +55,7 @@ class Frame
     /**
      * Returns all previous rolls.
      *
-     * @return array
+     * @return int[]
      */
     public function getRolls()
     {
@@ -117,7 +119,7 @@ class Frame
     /**
      * Returns a boolean declaring whether or not the frame is a strike.
      *
-     * @return bool
+     * @return boolean
      */
     public function isStrike()
     {
@@ -127,7 +129,7 @@ class Frame
     /**
      * Returns a boolean declaring whether or not the frame is a spare.
      *
-     * @return bool
+     * @return boolean
      */
     public function isSpare()
     {
@@ -137,7 +139,7 @@ class Frame
     /**
      * Returns a true if this frame is finished.
      *
-     * @return bool
+     * @return boolean
      */
     public function isFinished()
     {
@@ -147,6 +149,7 @@ class Frame
     /**
      * Sets the score for this frame.
      *
+     * @param $pins int
      * @return void
      */
     protected function score($pins = 0)
