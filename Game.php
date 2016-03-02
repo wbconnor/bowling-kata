@@ -112,6 +112,7 @@ class Game
     /**
      * Returns total number of frames in play.
      *
+     * @return int
      */
     public function getFramesCount()
     {
