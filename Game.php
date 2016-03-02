@@ -36,7 +36,7 @@ class Game
      */
     public function roll($pins = 0)
     {
-        if (!$this->is_finished)
+        if (!$this->isFinished())
         {
             $this->getCurrentFrame()->roll($pins);
 
@@ -135,7 +135,7 @@ class Game
      */
     public function score()
     {
-        if($this->is_finished)
+        if($this->isFinished())
         {
             $score   = 0;
             $strikes = 0;
@@ -181,7 +181,7 @@ class Game
         $this->cli->output('/---- Rolls ----/');
         $this->cli->output();
 
-        while(!$this->is_finished)
+        while(!$this->isFinished())
         {
             $roll_number  = $this->getCurrentFrame()->getRollsCount() + 1;
 
