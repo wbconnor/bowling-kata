@@ -31,7 +31,7 @@ class Cli
      */
     public function inputRaw()
     {
-        $input = fgets(STDIN);
+        $input         = fgets(STDIN);
         $this->input[] = $input;
 
         return $input;
