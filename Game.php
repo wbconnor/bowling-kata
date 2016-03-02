@@ -115,7 +115,7 @@ class Game
      */
     public function getFramesCount()
     {
-        return $this->getFramesCount();
+        return count($this->frames);
     }
 
     /**
