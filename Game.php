@@ -132,26 +132,26 @@ class Game
             $strikes = 0;
             $spares  = 0;
 
-            echo PHP_EOL;
-
             foreach ($this->frames as $index => $frame)
             {
                 $score   += $frame->getScore();
                 $strikes += $frame->getStrikesCount();
                 $spares  += $frame->getSparesCount();
 
-                echo "Is Strike: " . ($frame->isStrike() ? 'true' : 'false') . PHP_EOL;
-                echo "Is Spare: " . ($frame->isSpare() ? 'true' : 'false') . PHP_EOL;
-
-                echo "Score for frame #" . ($index + 1) . " is " . $frame->getScore() . PHP_EOL .
-                    "Running total is " . $score . PHP_EOL . PHP_EOL;
+                $this->cli->output('Frame #' . ($index + 1));
+                $this->cli->output('Score: ' . ($frame->getScore()));
+                $this->cli->output('Running Total: ' . ($score));
+                $this->cli->output();
             }
-        }
 
-        echo PHP_EOL . "Final Score = " . $score .
-            PHP_EOL . "Strikes = " . $strikes .
-            PHP_EOL . "Spares = " . $spares .
-            PHP_EOL . PHP_EOL . "Thanks for playing!";
+            $this->cli->output('Final Score: ' . ($score));
+            $this->cli->output('Total Strikes: ' . ($strikes));
+            $this->cli->output('Total Spares: ' . ($spares));
+            $this->cli->output();
+
+            $this->cli->output('Thanks for playing!');
+            $this->cli->output();
+        }
     }
 
     /**
@@ -190,12 +190,13 @@ class Game
             }
             else
             {
-                $this->cli->output('Sorry. That\'s not a valid input.');
-                $this->cli->output();
+                $this->cli->error('Sorry. That\'s not a valid input.');
+                $this->cli->error();
             }
         }
 
         $this->score();
+        exit();
     }
 
     /**
