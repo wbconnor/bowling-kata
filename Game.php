@@ -1,5 +1,6 @@
 <?php
 
+require_once (__DIR__ . '/Cli.php');
 require_once (__DIR__ . '/Frame.php');
 require_once (__DIR__ . '/FinalFrame.php');
 
