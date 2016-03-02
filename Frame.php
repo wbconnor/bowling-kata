@@ -126,13 +126,13 @@ class Frame
             $this->is_strike = true;
             $this->max_rolls += 1; // since a strike means there was only one roll, we only need to add 1 to the max rolls to allow 2 bonus rolls.
         }
-        else if ($this->getRollsCount() === 2 && $this->score === 10)
+        else if ($this->getRollsCount() === 2 && $this->score === 10 && !$this->isStrike())
         {
             // spare
             $this->is_spare  = true;
             $this->max_rolls += 1; // since a spare means there were two rolls, we only need to add 1 to the max rolls to allow 1 bonus roll.
         }
-        else if ($this->getRollsCount() === 2)
+        else if ($this->getRollsCount() === 2 && !$this->isStrike())
         {
             // nothing special
         }
