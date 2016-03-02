@@ -6,6 +6,7 @@ require_once (__DIR__ . '/FinalFrame.php');
 
 class Game
 {
+    protected $cli;
     protected $score;
     protected $frames;
     protected $max_frames;
@@ -18,6 +19,7 @@ class Game
      */
     public function __construct()
     {
+        $this->cli         = new Cli();
         $this->score       = 0;
         $this->frames      = [];
         $this->max_frames  = 10;
