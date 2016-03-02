@@ -89,7 +89,7 @@ class Game
     /**
      * Gets a specific frame.
      *
-     * @return object
+     * @return Frame|null
      */
     public function getFrame($index = 0)
     {
@@ -97,12 +97,16 @@ class Game
         {
             return $this->frames[$index];
         }
+        else
+        {
+            return null;
+        }
     }
 
     /**
      * Returns all frames from this game.
      *
-     * @return array
+     * @return Frame[]
      */
     public function getFrames()
     {
@@ -122,7 +126,7 @@ class Game
     /**
      * Checks if the game is finished.
      *
-     * @return bool
+     * @return boolean
      */
     public function isFinished()
     {
@@ -223,7 +227,7 @@ class Game
     /**
      * Returns the previous previous frame (or null).
      *
-     * @return object|null
+     * @return Frame|null
      */
     protected function getPreviousPreviousFrame()
     {
@@ -241,7 +245,7 @@ class Game
     /**
      * Returns the previous frame (or null).
      *
-     * @return object|null
+     * @return Frame|null
      */
     protected function getPreviousFrame()
     {
@@ -260,7 +264,7 @@ class Game
     /**
      * Returns the current frame.
      *
-     * @return object
+     * @return Frame
      */
     protected function getCurrentFrame()
     {
@@ -272,7 +276,7 @@ class Game
     /**
      * Returns the final frame (or null).
      *
-     * @return object|null
+     * @return Frame|null
      */
     protected function getFinalFrame()
     {
