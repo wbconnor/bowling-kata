@@ -71,7 +71,7 @@ class Frame
     }
 
     /**
-     * Returns a true if this frame is finished.
+     * Returns a boolean declaring whether or not the frame is a strike.
      *
      * @return bool
      */
@@ -81,7 +81,7 @@ class Frame
     }
 
     /**
-     * Returns a true if this frame is finished.
+     * Returns a boolean declaring whether or not the frame is a spare.
      *
      * @return bool
      */
