@@ -61,6 +61,16 @@ class Frame
     }
 
     /**
+     * Returns total number of rolls already taken.
+     *
+     * @return int
+     */
+    public function getRollsCount()
+    {
+        return count($this->rolls);
+    }
+
+    /**
      * Returns the current score of this frame.
      *
      * @return int
