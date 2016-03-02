@@ -182,7 +182,6 @@ class Game
                 echo "Thanks for playing" . PHP_EOL;
                 exit;
             }
-
         }
 
         $this->score();
