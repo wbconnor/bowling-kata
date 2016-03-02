@@ -1,7 +1,7 @@
 # bowling-kata
 The classic bowling score card exercise written in PHP
 
-## To use the bolwing-kata program:
+## To use the bowling-kata program:
 1. download or clone this repo
 2. open a terminal
 3. navigate to the proper directory
