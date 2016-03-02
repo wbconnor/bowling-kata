@@ -68,18 +68,18 @@ class Game
             // current frame is finished
             if ($this->getCurrentFrame()->isStrike() || $this->getCurrentFrame()->isSpare() || $this->getCurrentFrame()->isFinished())
             {
-                if (count($this->frames) < $this->max_frames - 1)
+                if ($this->getFramesCount() < $this->max_frames - 1)
                 {
                     // add another normal frame
                     $this->frames[] = new Frame();
                 }
-                else if (count($this->frames) < $this->max_frames)
+                else if ($this->getFramesCount() < $this->max_frames)
                 {
                     $this->frames[] = new FinalFrame();
                 }
             }
 
-            if (count($this->frames) === $this->max_frames && $this->getCurrentFrame()->isFinished())
+            if ($this->getFramesCount() === $this->max_frames && $this->getCurrentFrame()->isFinished())
             {
                 $this->is_finished = true;
             }
@@ -107,6 +107,15 @@ class Game
     public function getFrames()
     {
         return $this->frames;
+    }
+
+    /**
+     * Returns total number of frames in play.
+     *
+     */
+    public function getFramesCount()
+    {
+        return $this->getFramesCount();
     }
 
     /**
@@ -174,13 +183,12 @@ class Game
 
         while(!$this->is_finished)
         {
-            $frames_count = count($this->getFrames());
             $roll_number  = $this->getCurrentFrame()->getRollsCount() + 1;
 
             // only output frame number on the first roll
             if ($roll_number === 1)
             {
-                $this->cli->output('Frame #' . ($frames_count));
+                $this->cli->output('Frame #' . ($this->getFramesCount()));
                 $this->cli->output();
             }
 
@@ -218,7 +226,7 @@ class Game
      */
     protected function getPreviousPreviousFrame()
     {
-        $index = count($this->frames) - 3;
+        $index = $this->getFramesCount() - 3;
         if (array_key_exists($index, $this->frames))
         {
             return $this->frames[$index];
@@ -236,7 +244,7 @@ class Game
      */
     protected function getPreviousFrame()
     {
-        $index = count($this->frames) - 2;
+        $index = $this->getFramesCount() - 2;
 
         if (array_key_exists($index, $this->frames))
         {
@@ -255,7 +263,7 @@ class Game
      */
     protected function getCurrentFrame()
     {
-        $index = count($this->frames) - 1;
+        $index = $this->getFramesCount() - 1;
 
         return $this->frames[$index];
     }
