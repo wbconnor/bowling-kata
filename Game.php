@@ -89,6 +89,7 @@ class Game
     /**
      * Gets a specific frame.
      *
+     * @param $index int
      * @return Frame|null
      */
     public function getFrame($index = 0)
