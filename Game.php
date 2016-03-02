@@ -161,29 +161,37 @@ class Game
      */
     public function run()
     {
-        echo "Welcome to the PHP Bowling Kata!" . PHP_EOL .
-            "You'll be prompted for the score of each of your rolls." . PHP_EOL .
-            "Type \"quit\" to exit" . PHP_EOL;
+        $this->cli->output('Welcome to the PHP Bowling Kata!');
+        $this->cli->output('You will be prompted for each of your rolls.');
+        $this->cli->output('Enter "q" to exit');
+        $this->cli->output();
 
-        while(! $this->is_finished)
+        while(!$this->is_finished)
         {
-            echo "Enter your score for Frame #" . count($this->getFrames()) .
-            " roll #" . (count($this->getCurrentFrame()->getRolls()) + 1) . ": ";
+            $this->cli->output('Enter your score for Frame #');
+            $this->cli->output(count($this->getFrames()), false);
+            $this->cli->output(' Roll #' . ($this->getCurrentFrame()->getRollsCount() + 1) . ': ', false);
 
-            $handle = fopen ("php://stdin","r");
+            $input = $this->cli->input();
 
-            $this_roll = fgets($handle);
-
-            $this_roll = ((int) trim($this_roll));
-
-            if(is_numeric($this_roll))
+            if ($input === 'q')
             {
-                $this->roll($this_roll);
+                $this->cli->output('Thanks for playing!');
+                $this->cli->output();
+
+                exit();
             }
-            elseif($this_roll == 'quit')
+
+            $roll = (int) $input;
+
+            if (is_numeric($roll))
             {
-                echo "Thanks for playing" . PHP_EOL;
-                exit;
+                $this->roll($roll);
+            }
+            else
+            {
+                $this->cli->output('Sorry. That\'s not a valid input.');
+                $this->cli->output();
             }
         }
 
