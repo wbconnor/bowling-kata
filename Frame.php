@@ -81,6 +81,40 @@ class Frame
     }
 
     /**
+     * Returns the total number of strikes.
+     *
+     * @return int
+     */
+    public function getStrikesCount()
+    {
+        $strikes = 0;
+
+        if ($this->isStrike())
+        {
+            ++$strikes;
+        }
+
+        return $strikes;
+    }
+
+    /**
+     * Returns the total number of spares.
+     *
+     * @return int
+     */
+    public function getSparesCount()
+    {
+        $spares = 0;
+
+        if ($this->isSpare())
+        {
+            ++$spares;
+        }
+
+        return $spares;
+    }
+
+    /**
      * Returns a boolean declaring whether or not the frame is a strike.
      *
      * @return bool
