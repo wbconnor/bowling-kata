@@ -33,27 +33,52 @@ class Game
      */
     public function roll($pins = 0)
     {
-        if (count($this->frames) <= $this->max_frames && !$this->is_finished)
+        if (!$this->is_finished)
         {
             $this->getCurrentFrame()->roll($pins);
 
-            if ($this->getCurrentFrame()->isFinished())
+            // check previous frames for bonuses
+            if (!(null === $this->getPreviousFrame()) && !$this->getPreviousFrame()->isFinished())
             {
-                if (count($this->frames) < $this->max_frames)
+                if ($this->getPreviousFrame()->isStrike())
                 {
-                    if (count($this->frames) < $this->max_frames - 1)
+                    // strike, add bonus
+                    $this->getPreviousFrame()->roll($pins);
+
+                    // check 2 frames back
+                    if (!(null === $this->getPreviousPreviousFrame()) && !$this->getPreviousPreviousFrame()->isFinished())
                     {
-                        $this->frames[] = new Frame();
-                    }
-                    else
-                    {
-                        $this->frames[] = new EndFrame();
+                        if ($this->getPreviousPreviousFrame()->isStrike())
+                        {
+                            // previous previous frame was a strike, add bonus
+                            $this->getPreviousPreviousFrame()->roll($pins);
+                        }
                     }
                 }
-                else
+                else if ($this->getPreviousFrame()->isSpare())
                 {
-                    $this->is_finished = true;
+                    // spare, add bonus
+                    $this->getPreviousFrame()->roll($pins);
                 }
+            }
+
+            // current frame is finished
+            if ($this->getCurrentFrame()->isStrike() || $this->getCurrentFrame()->isSpare() || $this->getCurrentFrame()->isFinished())
+            {
+                if (count($this->frames) < $this->max_frames - 1)
+                {
+                    // add another normal frame
+                    $this->frames[] = new Frame();
+                }
+                else if (count($this->frames) < $this->max_frames)
+                {
+                    $this->frames[] = new EndFrame();
+                }
+            }
+
+            if (count($this->frames) === $this->max_frames && $this->getCurrentFrame()->isFinished())
+            {
+                $this->is_finished = true;
             }
         }
     }
@@ -100,75 +125,22 @@ class Game
     {
         if($this->is_finished)
         {
-            $score = 0;
+            $score   = 0;
             $strikes = 0;
-            $spares = 0;
+            $spares  = 0;
 
             echo PHP_EOL;
 
-            for($i = 0; $i < $this->max_frames; ++$i)
+            foreach ($this->frames as $index => $frame)
             {
-                $frame       = $this->getFrame($i);
-                $frame_score = $frame->getScore();
-                $frame_rolls = $frame->getRolls();
+                $score   += $frame->getScore();
+                $strikes += $frame->getStrikesCount();
+                $spares  += $frame->getSparesCount();
 
-                $num_of_rolls = count($frame_rolls);
+                echo "Is Strike: " . ($frame->isStrike() ? 'true' : 'false') . PHP_EOL;
+                echo "Is Spare: " . ($frame->isSpare() ? 'true' : 'false') . PHP_EOL;
 
-                if($frame_score === 10 && $i < ($this->max_frames - 1))
-                {
-                    $next_frame = $this->getFrame($i + 1);
-
-                    if(count($frame->getRolls()) === 1)
-                    {
-                        // add the bonus score for a strike to $score
-                        ++$strikes;
-
-                        $frame_score += $next_frame->getRoll(0);
-
-                        if(count($next_frame->getRolls()) === 1)
-                        {
-                            $frame_score += $this->getFrame($i + 2)->getRoll(0);
-                        }
-                        else
-                        {
-                            $frame_score += $next_frame->getRoll(1);
-                        }
-
-                    }
-                    else
-                    {
-                        ++$spares;
-
-                        // adding spare bonus
-                        $frame_score += $next_frame->getRoll(0);
-                    }
-                }
-                else if ($i === ($this->max_frames - 1))
-                {
-                    if ($num_of_rolls > 2)
-                    {
-                        ++$strikes;
-
-                        if ($frame_rolls[1] === 10)
-                        {
-                            ++$strikes;
-                        }
-
-                        if ($frame_rolls[2] === 10)
-                        {
-                            ++$strikes;
-                        }
-
-                        if (($frame_rolls[0] + $frame_rolls[1]) === 10)
-                        {
-                            ++$spares;
-                        }
-                    }
-                }
-
-                $score += $frame_score;
-
-                echo "Score for frame #" . ($i + 1) . " is " . $frame_score . PHP_EOL .
+                echo "Score for frame #" . ($index + 1) . " is " . $frame->getScore() . PHP_EOL .
                     "Running total is " . $score . PHP_EOL . PHP_EOL;
             }
         }
@@ -214,7 +186,43 @@ class Game
         }
 
         $this->score();
+    }
 
+    /**
+     * Returns the previous previous frame (or null).
+     *
+     * @return object|null
+     */
+    protected function getPreviousPreviousFrame()
+    {
+        $index = count($this->frames) - 3;
+        if (array_key_exists($index, $this->frames))
+        {
+            return $this->frames[$index];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * Returns the previous frame (or null).
+     *
+     * @return object|null
+     */
+    protected function getPreviousFrame()
+    {
+        $index = count($this->frames) - 2;
+
+        if (array_key_exists($index, $this->frames))
+        {
+            return $this->frames[$index];
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /**
@@ -224,6 +232,27 @@ class Game
      */
     protected function getCurrentFrame()
     {
-        return $this->frames[count($this->frames) - 1];
+        $index = count($this->frames) - 1;
+
+        return $this->frames[$index];
+    }
+
+    /**
+     * Returns the final frame (or null).
+     *
+     * @return object|null
+     */
+    protected function getFinalFrame()
+    {
+        $index = $this->max_frames - 1;
+
+        if (array_key_exists($index, $this->frames))
+        {
+            return $this->frames[$index];
+        }
+        else
+        {
+            return null;
+        }
     }
 }
