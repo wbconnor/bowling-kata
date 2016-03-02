@@ -120,19 +120,19 @@ class Frame
         $this->rolls[] = $pins;
         $this->score   += $pins;
 
-        if (count($this->rolls) === 1 && $this->score === 10)
+        if ($this->getRollsCount() === 1 && $this->score === 10)
         {
             // strike
             $this->is_strike = true;
             $this->max_rolls += 1; // since a strike means there was only one roll, we only need to add 1 to the max rolls to allow 2 bonus rolls.
         }
-        else if (count($this->rolls === 2 && $this->score === 10))
+        else if ($this->getRollsCount() === 2 && $this->score === 10)
         {
             // spare
             $this->is_spare  = true;
             $this->max_rolls += 1; // since a spare means there were two rolls, we only need to add 1 to the max rolls to allow 1 bonus roll.
         }
-        else if (count($this->rolls === 2))
+        else if ($this->getRollsCount() === 2)
         {
             // nothing special
         }
@@ -141,7 +141,7 @@ class Frame
             // first turn, no strike
         }
 
-        if (count($this->rolls) === $this->max_rolls)
+        if ($this->getRollsCount() === $this->max_rolls)
         {
             $this->is_finished = true;
         }
