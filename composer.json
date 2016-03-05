@@ -2,7 +2,7 @@
     "name": "drmyersii/bowling-kata",
     "description": "PHP Solution for the Classic Bowling Kata",
     "license": "MIT",
-    "require": {
+    "require-dev": {
         "phpunit/phpunit": "^5.2"
     }
 }
