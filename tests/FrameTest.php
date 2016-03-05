@@ -1,8 +1,9 @@
 <?php
 
+require_once (__DIR__ . '/BaseTest.php');
 require_once (__DIR__ . '/../Frame.php');
 
-class FrameTest extends \PHPUnit_Framework_TestCase
+class FrameTest extends BaseTest
 {
     public function testCanBeConstructed()
     {
