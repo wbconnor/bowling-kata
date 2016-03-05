@@ -168,7 +168,7 @@ Vagrant.configure(2) do |config|
         ####
 
         # @param: (optional) location to run `composer install`
-        args_composer_install_dir = ""
+        args_composer_install_dir = "/vagrant"
 
         # call composer provisioner
         config.vm.provision :shell, privileged: false, path: "#{scripts_url}/composer", args: [ args_composer_install_dir ]
