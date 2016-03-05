@@ -10,7 +10,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      * @param $params array
      * @return mixed
      */
-    protected function invokeMethod($object, string $method, array $params = [])
+    protected function invokeMethod($object, $method, array $params = [])
     {
         $reflection        = new \ReflectionClass(get_class($object));
         $reflection_method = $reflection->getMethod($method);
