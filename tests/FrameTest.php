@@ -12,6 +12,17 @@ class FrameTest extends BaseTest
         $this->assertInstanceOf(Frame::class, $frame);
     }
 
+    public function testCanRoll()
+    {
+        $frame = new Frame();
+
+        $this->assertEquals($frame->getRollsCount(), 0);
+
+        $frame->roll();
+
+        $this->assertEquals($frame->getRollsCount(), 1);
+    }
+
     public function testCanScore()
     {
         $frame = new Frame();
