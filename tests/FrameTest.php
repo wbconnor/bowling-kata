@@ -43,7 +43,15 @@ class FrameTest extends BaseTest
         }
 
         $this->assertEquals($frame->getRolls(), $rolls);
+    }
 
+    public function testCanGetRollsCount()
+    {
+        $frame = new Frame();
+
+        $frame->roll(5);
+
+        $this->assertEquals($frame->getRollsCount(), 1);
     }
 
     public function testCanScore()
