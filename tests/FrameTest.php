@@ -170,6 +170,60 @@ class FrameTest extends BaseTest
         $this->assertEquals($frame->isSpare(), true);
     }
 
+    public function testIfIsFinished()
+    {
+        $frame = new Frame();
+
+        // make first roll
+        $frame->roll(1);
+
+        // make sure frame is not finished
+        $this->assertEquals($frame->isFinished(), false);
+
+        // make last roll
+        $frame->roll(1);
+
+        // make sure frame is finished
+        $this->assertEquals($frame->isFinished(), true);
+
+        // reset frame
+        $frame = new Frame();
+
+        // make spare rolls
+        $frame->roll(5);
+        $frame->roll(5);
+
+        // make sure frame is not finished
+        $this->assertEquals($frame->isFinished(), false);
+
+        // add single bonus roll for spare
+        $frame->roll(1);
+
+        // make sure frame is finished
+        $this->assertEquals($frame->isFinished(), true);
+
+        // reset frame
+        $frame = new Frame();
+
+        // make strike roll
+        $frame->roll(10);
+
+        // make sure frame is not finished
+        $this->assertEquals($frame->isFinished(), false);
+
+        // add first bonus roll for strike
+        $frame->roll(1);
+
+        // make sure frame is not finished
+        $this->assertEquals($frame->isFinished(), false);
+
+        // add last bonus roll for strike
+        $frame->roll(1);
+
+        // make sure frame is finished
+        $this->assertEquals($frame->isFinished(), true);
+    }
+
     public function testCanScore()
     {
         $frame = new Frame();
