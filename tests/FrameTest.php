@@ -74,6 +74,29 @@ class FrameTest extends BaseTest
         $this->assertEquals($frame->getScore(), 5);
     }
 
+    public function testCanGetStrikesCount()
+    {
+        $frame = new Frame();
+
+        // make sure strikes count is 0 when there are no rolls
+        $this->assertEquals($frame->getStrikesCount(), 0);
+
+        // make a non-strike roll
+        $frame->roll(5);
+
+        // make sure strikes count is 0 since the roll wasn't a strike
+        $this->assertEquals($frame->getStrikesCount(), 0);
+
+        // reset frame
+        $frame = new Frame();
+
+        // make a strike roll
+        $frame->roll(10);
+
+        // make sure strikes count is 1 since the roll was a strike
+        $this->assertEquals($frame->getStrikesCount(), 1);
+    }
+
     public function testCanScore()
     {
         $frame = new Frame();
