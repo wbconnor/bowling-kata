@@ -127,6 +127,27 @@ class FrameTest extends BaseTest
         $this->assertEquals($frame->getSparesCount(), 0);
     }
 
+    public function testIfIsStrike()
+    {
+        $frame = new Frame();
+
+        // make non-strike rolls
+        $frame->roll(1);
+        $frame->roll(1);
+
+        // make sure it is not a strike
+        $this->assertEquals($frame->isStrike(), false);
+
+        // reset frame
+        $frame = new Frame();
+
+        // make strike roll
+        $frame->roll(10);
+
+        // make sure it is a strike
+        $this->assertEquals($frame->isStrike(), true);
+    }
+
     public function testCanScore()
     {
         $frame = new Frame();
