@@ -148,6 +148,28 @@ class FrameTest extends BaseTest
         $this->assertEquals($frame->isStrike(), true);
     }
 
+    public function testIfIsSpare()
+    {
+        $frame = new Frame();
+
+        // make non-spare rolls
+        $frame->roll(1);
+        $frame->roll(1);
+
+        // make sure it is not a spare
+        $this->assertEquals($frame->isSpare(), false);
+
+        // reset frame
+        $frame = new Frame();
+
+        // make spare rolls
+        $frame->roll(5);
+        $frame->roll(5);
+
+        // make sure it is a spare
+        $this->assertEquals($frame->isSpare(), true);
+    }
+
     public function testCanScore()
     {
         $frame = new Frame();
