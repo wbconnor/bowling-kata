@@ -97,6 +97,36 @@ class FrameTest extends BaseTest
         $this->assertEquals($frame->getStrikesCount(), 1);
     }
 
+    public function testCanGetSparesCount()
+    {
+        $frame = new Frame();
+
+        // make sure spares count is 0 when there are no rolls
+        $this->assertEquals($frame->getSparesCount(), 0);
+
+        // make first roll
+        $frame->roll(5);
+
+        // make sure spares count is still 0
+        $this->assertEquals($frame->getSparesCount(), 0);
+
+        // make second spare-causing roll
+        $frame->roll(5);
+
+        // make sure spares count is 1 since the rolls added up to 10
+        $this->assertEquals($frame->getSparesCount(), 1);
+
+        // reset frame
+        $frame = new Frame();
+
+        // make two rolls that don't make a spare
+        $frame->roll(1);
+        $frame->roll(1);
+
+        // make sure spares count is 0 since the rolls didn't add up to 10
+        $this->assertEquals($frame->getSparesCount(), 0);
+    }
+
     public function testCanScore()
     {
         $frame = new Frame();
