@@ -54,6 +54,26 @@ class FrameTest extends BaseTest
         $this->assertEquals($frame->getRollsCount(), 1);
     }
 
+    public function testCanGetScore()
+    {
+        $frame = new Frame();
+
+        // make sure score is 0 when there are no rolls
+        $this->assertEquals($frame->getScore(), 0);
+
+        // make the first roll
+        $frame->roll(3);
+
+        // make sure score matches first roll
+        $this->assertEquals($frame->getScore(), 3);
+
+        // make the second roll
+        $frame->roll(2);
+
+        // make sure score matches first roll plus second roll
+        $this->assertEquals($frame->getScore(), 5);
+    }
+
     public function testCanScore()
     {
         $frame = new Frame();
